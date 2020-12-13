@@ -1,11 +1,13 @@
 from PySide6.QtCore import Qt, QFile, QFileInfo, QSettings, QTextStream
 from PySide6.QtGui import QIcon
-from PySide6.Widgets import (QAction, QApplication, QFileDialog, QMainWindow,
-                             QPlainTextEdit, QFileDialog, QMessageBox)
+from PySide6.QtWidgets import (QWidgetAction, QApplication, QFileDialog, QMainWindow,
+                               QPlainTextEdit, QFileDialog, QMessageBox)
+
 
 def __init__(self, parent=None):
-    QMainWindow.__init__(self)            self.textEdit =  QPlainTextEdit()
-    self.setCentralWidget(textEdit)
+    QMainWindow.__init__(self)
+    self.textEdit = QPlainTextEdit()
+    self.setCentralWidget(self.textEdit)
 
     self.createActions()
     self.createMenus()
