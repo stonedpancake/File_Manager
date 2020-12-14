@@ -1,63 +1,42 @@
-from PySide6.QtCore import Qt, QFile, QFileInfo, QSettings, QTextStream
-from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QWidgetAction, QApplication, QFileDialog, QMainWindow, \
-    QPlainTextEdit, QFileDialog, QMessageBox
+import sys
+from PySide6.QtWidgets import QWidget, QApplication, QMessageBox, QPushButton
+from PySide6.QtGui import QCloseEvent
+
+run_ = True
 
 
-class MainWindow(QMainWindow):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.textEdit = QPlainTextEdit()
-        self.curFile = ""
-        # ...
+def run():
+    app = QApplication(sys.argv)
+    ex = Example()
+    app.exec_()
 
-    def loadFile(self, fileName):
-        pass
 
-    def closeEvent(self, event):
-        pass
+class Example(QWidget):
+    def __init__(self):
+        super().__init__()
 
-    def newFile(self):
-        pass
+        self.setup()
 
-    def open(self):
-        pass
+    def setup(self):
+        btn_quit = QPushButton('Quit', self)
+        btn_quit.clicked.connect(QApplication.instance().quit)
+        btn_quit.resize(btn_quit.sizeHint())
+        btn_quit.move(100, 100)
 
-    def save(self):
-        pass
+        self.setGeometry(300, 300, 300, 300)
+        self.setWindowTitle('PySide6 Example')
 
-    def saveAs(self):
-        pass
+        self.show()
 
-    def about(self):
-        pass
+    def closeEvent(self, event: QCloseEvent):
+        reply = QMessageBox.question(self, 'Message', 'Are you sure you want to quit?',
+                                     QMessageBox.No | QMessageBox.No)
 
-    def documentWasModified(self):
-        pass
-    # Enable this only if QT_NO_SESSIONMANAGER is not defined
-    # def commitData(self):
-    #   pass
+        if reply == QMessageBox.No:
+            event.accept()
+        else:
+            event.ignore()
 
-    def createActions(self):
-        pass
 
-    def createStatusBar(self):
-        pass
-
-    def readSettings(self):
-        pass
-
-    def writeSettings(self):
-        pass
-
-    def maybeSave(self):
-        pass
-
-    def saveFile(self, fileName):
-        pass
-
-    def setCurrentFile(self, fileName):
-        pass
-
-    def strippedName(self, fullFileName):
-        pass
+if __name__ == '__main__':
+    run()
