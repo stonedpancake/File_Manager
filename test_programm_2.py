@@ -1,6 +1,7 @@
 import os
 import sys
 
+from PySide6.QtCore import QFile
 from PySide6.QtUiTools import QUiLoader
 import pygame
 import PyQt5
@@ -17,9 +18,14 @@ class Window(QMainWindow):
 
         self.setGeometry(50, 50, 200, 200)
         self.setWindowTitle('Awesome File Manager')
-        QUiLoader.load(self, 'file_manager_design_1.ui')
 
-        self.box_filters.setItemText(0, 'first filter')
+        ui_file = QFile("mainwindow.ui")
+        ui_file.open(QFile.ReadOnly)
+
+        loader = QUiLoader()
+        self.window = loader.load(ui_file)
+
+        self.window.comboBox.setItemText(0, 'first filter')
 
         files = QFileDialog.getOpenFileNames(self)
         btn_file = QPushButton('Open', self)
